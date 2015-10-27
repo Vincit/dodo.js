@@ -2,7 +2,11 @@
 
 # Nails.js
 
+Under construction. Coming sooon....
+
 ## Bootstrapping new nails project
+
+Some day in future when project is released following should work
 
     npm install nails-init
 
