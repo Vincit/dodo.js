@@ -1,0 +1,5 @@
+instrumentation:
+  excludes: []
+
+reporting:
+  dir: ./test-coverage
