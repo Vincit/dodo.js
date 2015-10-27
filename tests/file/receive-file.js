@@ -1,13 +1,14 @@
 var _ = require('lodash')
   , os = require('os')
   , fs = require('fs')
+  , path = require('path')
   , expect = require('chai').expect
   , express = require('express')
   , Promise = require('bluebird')
   , request = require('../../lib/http/request')
   , receiveFile = require('../../lib/file/receive-file')
-  , sentFile = os.tmpdir() + 'sent'
-  , receivedFile = os.tmpdir() + 'received';
+  , sentFile = path.join(os.tmpdir(), 'sent')
+  , receivedFile = path.join(os.tmpdir(), 'received');
 
 // Create a file filled with random characters.
 function createFile(filePath, size) {

@@ -1,14 +1,15 @@
 var _ = require('lodash')
   , os = require('os')
   , fs = require('fs')
+  , path = require('path')
   , expect = require('chai').expect
   , express = require('express')
   , Promise = require('bluebird')
   , bodyParser = require('body-parser')
   , compression = require('compression')
   , request = require('../../lib/http/request')
-  , outFilePath = os.tmpdir() + 'out'
-  , inFilePath = os.tmpdir() + 'in';
+  , outFilePath = path.join(os.tmpdir(), 'out')
+  , inFilePath = path.join(os.tmpdir(), 'in');
 
 Promise.longStackTraces();
 
