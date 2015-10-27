@@ -1,0 +1,64 @@
+{
+  "name": "nails",
+  "description": "Nails.js REST backend framework core library",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Sami Koskimäki",
+    "email": "sami.koskimaki@vincit.com",
+    "url": "https://github.com/koskimas"
+  },
+  "contributors": [
+    "Mikael Lepistö <mikael.lepisto@vincit.com> (https://github.com/elhigu)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vincit/nails.js.git"
+  },
+  "keywords": [
+    "framework",
+    "http",
+    "api",
+    "web",
+    "rest",
+    "microservice"
+  ],
+  "files": [
+    "README.md",
+    "LICENSE",
+    "lib/*"
+  ],
+  "dependencies": {
+    "aws-sdk": "2.1.26",
+    "bluebird": "2.9.25",
+    "body-parser": "1.12.3",
+    "busboy": "0.2.9",
+    "cli-color": "1.0.0",
+    "compression": "1.4.3",
+    "chai": "^3.4.0",
+    "form-data": "0.2.0",
+    "fs-extra": "0.18.2",
+    "glob": "5.0.5",
+    "lodash": "^3.6.0",
+    "minimist": "1.1.1",
+    "moment": "2.10.2",
+    "mv": "2.0.3",
+    "node-uuid": "1.4.3",
+    "tv4": "1.1.9",
+    "tv4-formats": "1.0.0",
+    "underscore.string": "^3.0.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.15",
+    "chai": "^3.4.0",
+    "mocha": "2.2.4"
+  },
+  "peerDependencies": {
+    "express": "^4.12.0"
+  },
+  "scripts": {
+    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 5000 --reporter spec --recursive tests",
+    "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  }
+}
