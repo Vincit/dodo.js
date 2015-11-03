@@ -1,13 +1,13 @@
-[![Build Status](https://travis-ci.org/Vincit/nails.js.svg?branch=master)](https://travis-ci.org/Vincit/nails.js) 
-[![Coverage Status](https://coveralls.io/repos/Vincit/nails.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/Vincit/nails.js?branch=master)
+[![Build Status](https://travis-ci.org/Vincit/dodo.js.svg?branch=master)](https://travis-ci.org/Vincit/dodo.js)
+[![Coverage Status](https://coveralls.io/repos/Vincit/dodo.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/Vincit/dodo.js?branch=master)
 
-# Nails.js
+# Dodo.js
 
 Under construction. Coming sooon....
 
-## Bootstrapping new nails project
+## Bootstrapping new Dodo project
 
 Some day in future when project is released following should work
 
-    npm install nails-init
+    npm install dodo-init
 

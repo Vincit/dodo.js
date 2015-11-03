@@ -1,6 +1,6 @@
 {
-  "name": "nails",
-  "description": "Nails.js REST backend framework core library",
+  "name": "dodo",
+  "description": "Dodo.js REST backend framework core library",
   "version": "0.0.1",
   "license": "MIT",
   "author": {
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/vincit/nails.js.git"
+    "url": "git://github.com/vincit/dodo.js.git"
   },
   "keywords": [
     "framework",
