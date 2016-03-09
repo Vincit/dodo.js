@@ -72,6 +72,20 @@ describe('initFeatures', function () {
       .to.equal('feature-path1/single-file-feature');
   });
 
+  it('should not fail if config is not run as testing profile', function () {
+    var app = {
+      config: {
+        features : [
+          { feature : 'single-file-feature' }
+        ],
+        featurePaths: [ featurePath1, featurePath2 ]
+      }
+    };
+    plugins.initFeatures(app);
+    expect(app.feature('single-file-feature').featureId)
+      .to.equal('feature-path1/single-file-feature');
+  });
+
   it('should throw if feature directory / file is not found', function () {
     var app = {
       config: {

@@ -163,6 +163,24 @@ describe('main.js app create / start', function () {
         main.startApp(app);
       });
     });
+
+    it('should start correctly also when not in testing profile', function () {
+      delete okConfig['profile'];
+      var app = main.createApp(okConfig);
+      return main.startApp(app);
+    });
+
+    it('should return startup error also if not in testing profile', function () {
+      delete okConfig['profile'];
+      okConfig.protocol = 'https';
+      var app = main.createApp(okConfig);
+      return new Promise(function (resolve, reject) {
+        // fail promise if start app is success and success if starting is fail
+        main.startApp(app).then(reject).catch(resolve);
+      }).then(function (err) {
+        expect(err.message).to.contain("Https requires ssl configuration with key and cert");
+      });
+    });
   });
 
 });
