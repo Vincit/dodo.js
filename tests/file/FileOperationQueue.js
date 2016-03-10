@@ -19,6 +19,20 @@ describe('FileOperationQueue', function () {
     return fileUtils.remove(queueDir);
   });
 
+  it('should fail if dirPath not given', function () {
+    expect(function () {
+      new FileOperationQueue({}, function (filePath, metadata, progress) {
+      });
+    }).to.throw(/options.dirPath needed/);
+  });
+
+  it('should fail if operation not given', function () {
+    expect(function () {
+      new FileOperationQueue({ dirPath: queueDir });
+    }).to.throw(/operation must be given/);
+  });
+
+
   it('should create the directory', function () {
     var queue = new FileOperationQueue({dirPath: queueDir}, function (filePath, metadata, progress) {});
 
