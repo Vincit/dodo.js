@@ -61,6 +61,33 @@ describe('merge config', function () {
     });
   });
 
+  it('should fail if feature does not have feature name given', function () {
+    var feature = {
+    };
+
+    expect(function () {
+      mergeConfig(baseConfig, {
+        features: [feature]
+      });
+    }).to.throw(/Feature must have key: "feature" set:/);
+  });
+
+  it('should fail if feature attribute is not string', function () {
+    function testFeatureAttributeType(attr) {
+      expect(function () {
+        mergeConfig(baseConfig, {
+          features: [{ feature: attr }]
+        });
+      }).to.throw(/Invalid feature reference, must be string/);
+    }
+
+    testFeatureAttributeType(function () {});
+    testFeatureAttributeType({});
+    testFeatureAttributeType(1);
+    testFeatureAttributeType(true);
+    testFeatureAttributeType([ 'a' ]);
+  });
+
   it('should leave the original config untouched', function () {
     var merged = mergeConfig(baseConfig, {
       port: 5555,
@@ -99,6 +126,12 @@ describe('merge config', function () {
     delete baseConfig.database.database;
 
     expect(merged).to.eql(baseConfig);
+  });
+
+  it('options.debug should not fail (NOTE: this will spam test run a bit)', function () {
+    var mergedConf = { printFunctionWorksToo: function () {} };
+    var merged = mergeConfig(baseConfig, mergedConf, { debug: true });
+    expect(merged).to.eql(_.extend({}, baseConfig, mergedConf));
   });
 
   it('$addFeaturePaths should add values to the featurePaths array', function () {
@@ -143,9 +176,20 @@ describe('merge config', function () {
       mergeConfig(baseConfig, {
         features: [feature]
       });
-    }).to.throw();
+    }).to.throw(/Multiple features with same feature reference found/);
   });
 
+  it('$remove should fail if non-existing id given', function () {
+    var feature = {
+      $remove: 'feature-not-here'
+    };
+
+    expect(function () {
+      mergeConfig(baseConfig, {
+        features: [feature]
+      });
+    }).to.throw('$remove: feature-not-here could not be found');
+  });
 
   it('$addBefore in feature definition should add the feature before the given feature', function () {
     var feature = {
@@ -192,7 +236,23 @@ describe('merge config', function () {
       mergeConfig(baseConfig, {
         features: [feature]
       });
-    }).to.throw();
+    }).to.throw(/Multiple features with same feature reference found/);
+  });
+
+  it('$addBefore should fail if non-existing id given', function () {
+    var feature = {
+      $addBefore: 'feature-not-found',
+      feature: 'add-before-test',
+      config: {
+        something: 'here'
+      }
+    };
+
+    expect(function () {
+      mergeConfig(baseConfig, {
+        features: [feature]
+      });
+    }).to.throw('$addBefore: feature-not-found could not be found');
   });
 
   it('$addAfter in feature definition should add the feature after the given feature', function () {
@@ -261,6 +321,22 @@ describe('merge config', function () {
         features: [feature]
       });
     }).to.throw();
+  });
+
+  it('$addAfter should fail if non-existing id given', function () {
+    var feature = {
+      $addAfter: 'feature-not-found',
+      feature: 'add-after-test',
+      config: {
+        something: 'here'
+      }
+    };
+
+    expect(function () {
+      mergeConfig(baseConfig, {
+        features: [feature]
+      });
+    }).to.throw('$addAfter: feature-not-found could not be found');
   });
 
   it('feature definition should be merged with an existing one', function () {

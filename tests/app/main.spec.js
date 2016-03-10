@@ -164,13 +164,13 @@ describe('main.js app create / start', function () {
       });
     });
 
-    it('should start correctly also when not in testing profile', function () {
+    it('should start correctly also when not in testing profile (NOTE: this will spam test run a bit)', function () {
       delete okConfig['profile'];
       var app = main.createApp(okConfig);
       return main.startApp(app);
     });
 
-    it('should return startup error also if not in testing profile', function () {
+    it('should return startup error also if not in testing profile (NOTE: shows an error during tests)', function () {
       delete okConfig['profile'];
       okConfig.protocol = 'https';
       var app = main.createApp(okConfig);
