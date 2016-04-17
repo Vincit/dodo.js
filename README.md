@@ -7,7 +7,4 @@ Under construction. Coming sooon....
 
 ## Bootstrapping new Dodo project
 
-Some day in future when project is released following should work
-
-    npm install dodo-init
-
+There is separate project for various project templates es5, es6, babel, typescript https://github.com/Vincit/dodo-starterkit
