@@ -69,4 +69,9 @@ describe('build-helpers.js', function () {
     var services = buildHelpers.scanServices(newServicePath, 'development');
     expect(shelljs.test('-d', newServicePath)).to.be.true;
   });
+
+  it('should pass context with servicePath if configuration is function (ctx)', function () {
+    var services = buildHelpers.scanServices(path.join(__dirname, 'test-service-path'), 'passing-service-dir');
+    expect(services[0].config.servicePath).to.contain('test-service-path/dummy');
+  });
 });
