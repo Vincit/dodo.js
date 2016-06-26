@@ -16,6 +16,7 @@ describe('main.js app create / start', function () {
 
   beforeEach(function () {
     okConfig = {
+      port : 0,
       features : [
         {
           feature : 'feature-in-path',

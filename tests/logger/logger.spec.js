@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var log = require('../../lib/logger');
 var MockHandler = require('../../lib/logger/mock-handler');
 
-describe.skip('dodo logger', function () {
+describe.skip('logging system', function () {
   describe('when using logger without setting it up', function () {
     it('should have ConsoleLogHandler for info, warning and error levels', function () {
     });
