@@ -26,9 +26,8 @@ describe('build-helpers.js', function () {
     });
 
     it('should have core tasks registered', function () {
-      expect(services[0].tasks).to.have.length(2);
+      expect(services[0].tasks).to.have.length(1);
       expect(_.find(services[0].tasks, { name: 'serve' })).to.be.truthy;
-      expect(_.find(services[0].tasks, { name: 'test' })).to.be.truthy;
     });
 
     it('should have configuration', function () {
@@ -81,17 +80,17 @@ describe('build-helpers.js', function () {
   it('should register tasks of the features', function () {
     var services = buildHelpers.scanServices(path.join(__dirname, 'test-service-path'), 'feature-with-tasks');
     expect(services).to.have.length(1);
-    expect(services[0].tasks).to.have.length(3);
-    expect(services[0].tasks[2].name).to.equal('feature-task');
-    expect(services[0].tasks[2].description).to.equal('Does pretty much nothing');
-    expect(services[0].tasks[2].run().config.port).to.equal(9001);
-    expect(services[0].tasks[2].run().featureConfig.shouldPassFeatureConfigToo).to.equal(true);
+    expect(services[0].tasks).to.have.length(2);
+    expect(services[0].tasks[1].name).to.equal('feature-task');
+    expect(services[0].tasks[1].description).to.equal('Does pretty much nothing');
+    expect(services[0].tasks[1].run().config.port).to.equal(9001);
+    expect(services[0].tasks[1].run().featureConfig.shouldPassFeatureConfigToo).to.equal(true);
   });
 
   it('should run serve task', function () {
     var services = buildHelpers.scanServices(path.join(__dirname, 'test-service-path'), 'realdeal');
     expect(services).to.have.length(1);
-    expect(services[0].tasks).to.have.length(2);
+    expect(services[0].tasks).to.have.length(1);
     return services[0].tasks[0].run().then(function (app) {
       expect(app.config).to.be.ok;
       return new Promise(function (resolve) {
@@ -100,12 +99,4 @@ describe('build-helpers.js', function () {
     });
   });
 
-  it('should run test task', function () {
-    var services = buildHelpers.scanServices(path.join(__dirname, 'test-service-path'), 'realdeal');
-    expect(services).to.have.length(1);
-    expect(services[0].tasks).to.have.length(2);
-    return Promise.resolve(services[0].tasks[1].run()).then(function (result) {
-      expect(result).to.be.false;
-    });
-  });
 });
