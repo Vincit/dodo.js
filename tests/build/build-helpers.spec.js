@@ -1,3 +1,6 @@
+
+var Promise = require('bluebird');
+
 var _ = require('lodash');
 var buildHelpers = require('../../lib/build/build-helpers');
 var expect = require('chai').expect;
