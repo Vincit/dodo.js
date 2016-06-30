@@ -1,7 +1,7 @@
 {
   "name": "dodo",
   "description": "Dodo.js REST backend framework core library",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "author": {
     "name": "Sami Koskimäki",
