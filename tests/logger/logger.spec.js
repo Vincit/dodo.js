@@ -7,6 +7,10 @@ var ConsoleLogHandler = require('../../lib/logger/console-log-handler');
 var DevNullHandler = require('../../lib/logger/dev-null-handler');
 
 describe('logging system', function () {
+  after(function () {
+    logger.resetToDefaultLogHandlers();
+  });
+
   describe('when using logger without setting it up', function () {
     var log = logger.getLogger('test.no.setup');
 
@@ -196,6 +200,8 @@ describe('logging system', function () {
       log.info(strCallback);
       expect(strCallback.callCount).to.equal(1);
       expect(logHandler.logs[0].message).to.equal(magicString);
+      expect(logHandler.logs[0].level).to.equal('info');
+      expect(logHandler.logs[0].name).to.equal('one.more.logger.for.testing');
     });
 
     it('should fail to log if no parameters given', function () {
