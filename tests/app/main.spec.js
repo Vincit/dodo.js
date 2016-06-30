@@ -1,5 +1,7 @@
 'use strict';
 
+var Promise = require('bluebird');
+
 var expect = require('chai').expect;
 var main = require('../../lib/app/express/main');
 var request = require('../../lib/http/request');
@@ -16,6 +18,7 @@ describe('main.js app create / start', function () {
 
   beforeEach(function () {
     okConfig = {
+      port : 0,
       features : [
         {
           feature : 'feature-in-path',
