@@ -7,6 +7,10 @@ var ConsoleLogHandler = require('../../lib/logger/console-log-handler');
 var DevNullHandler = require('../../lib/logger/dev-null-handler');
 
 describe('logging system', function () {
+  after(function () {
+    logger.resetToDefaultLogHandlers();
+  });
+
   describe('when using logger without setting it up', function () {
     var log = logger.getLogger('test.no.setup');
 
