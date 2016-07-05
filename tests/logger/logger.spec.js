@@ -165,6 +165,11 @@ describe('logging system', function () {
       logger.setHandler([logger.level.info], /.*/, logHandler);
     });
 
+    it('should understand if two strings are passed to logger to unite strings like util.format does', function () {
+      log.info('wat', 'wat');
+      expect(logHandler.logs[0].message).to.equal('wat wat');
+    });
+
     it('should call function passed as first parameter', function () {
       var objCallback = sinon.spy(function () { return { metadata: 1 }; });
       log.info(objCallback);
