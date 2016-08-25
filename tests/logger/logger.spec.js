@@ -1,10 +1,11 @@
 var expect = require('chai').expect;
-var sinon = require('sinon')
+var sinon = require('sinon');
 
-var logger = require('../../lib/logger');
-var MockHandler = require('../../lib/logger/mock-handler');
-var ConsoleLogHandler = require('../../lib/logger/console-log-handler');
-var DevNullHandler = require('../../lib/logger/dev-null-handler');
+var logging = require('../../logger');
+var logger = logging.LogHub;
+var MockHandler = logging.MockHandler;
+var ConsoleLogHandler = logging.ConsoleLogHandler;
+var DevNullHandler = logging.DevNullHandler;
 
 describe('logging system', function () {
   after(function () {
