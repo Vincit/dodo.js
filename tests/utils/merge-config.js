@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var mergeConfig = require('../../lib/utils/merge-config');
+var mergeConfig = require('../../lib/utils/merge-config').mergeConfig;
 var expect = require('chai').expect;
 
 describe('merge config', function () {
