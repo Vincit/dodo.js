@@ -26,7 +26,8 @@
   "files": [
     "README.md",
     "LICENSE",
-    "lib/*"
+    "lib/*",
+    "*.js"
   ],
   "dependencies": {
     "aws-sdk": "2.1.26",
