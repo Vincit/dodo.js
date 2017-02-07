@@ -45,6 +45,12 @@ describe('Test exposed API', function () {
     expect(logger.getLogger).to.be.ok;
     expect(logger.evaluateLogRowArgs).to.be.ok;
     expect(logger.LogHub).to.be.ok;
+    expect(logger.level).to.be.ok;
+    expect(logger.level.trace).to.be.ok;
+    expect(logger.level.debug).to.be.ok;
+    expect(logger.level.info).to.be.ok;
+    expect(logger.level.warning).to.be.ok;
+    expect(logger.level.error).to.be.ok;
 
     expect(utils.classUtils).to.be.ok;
     expect(utils.mergeConfig).to.be.ok;
