@@ -25,6 +25,7 @@
   ],
   "files": [
     "README.md",
+    "CONTRIBUTING.md",
     "LICENSE",
     "lib/*"
   ],
