@@ -110,13 +110,10 @@ describe('main.js app create / start', function () {
   describe('startServer(app)', function () {
     it('should throw an error if config.protocol == https and no ssl config given', function () {
       okConfig.protocol = 'https';
-      var app = main.createApp(okConfig);
-      return new Promise(function (resolve, reject) {
-        // fail promise if start app is success and success if starting is fail
-        main.startApp(app).then(reject).catch(resolve);
-      }).then(function (err) {
-        expect(err.message).to.contain("Https requires ssl configuration with key and cert");
-      });
+      var fn = function () {
+        main.createApp(okConfig);
+      };
+      expect(fn).to.throw("Https requires ssl configuration with key and cert");
     });
 
     it('should be able to create https server with key, cert and passphrase', function () {
@@ -152,11 +149,10 @@ describe('main.js app create / start', function () {
         key: path.join(__dirname, 'data', 'server.key'),
         cert: path.join(__dirname, 'data', 'server.crt')
       };
-      var app = main.createApp(okConfig);
-      return new Promise(function (resolve, reject) {
-        // fail promise if start app is success and success if starting is fail
-        main.startApp(app).then(reject).catch(resolve);
-      });
+      var fn = function () {
+        main.createApp(okConfig);
+      };
+      expect(fn).to.throw;
     });
 
     it('should emit serverStart event after server is started', function () {
@@ -176,13 +172,10 @@ describe('main.js app create / start', function () {
     it('should return startup error also if not in testing profile (NOTE: shows an error during tests)', function () {
       delete okConfig['profile'];
       okConfig.protocol = 'https';
-      var app = main.createApp(okConfig);
-      return new Promise(function (resolve, reject) {
-        // fail promise if start app is success and success if starting is fail
-        main.startApp(app).then(reject).catch(resolve);
-      }).then(function (err) {
-        expect(err.message).to.contain("Https requires ssl configuration with key and cert");
-      });
+      var fn = function () {
+        main.createApp(okConfig);
+      };
+      expect(fn).to.throw("Https requires ssl configuration with key and cert");
     });
   });
 
