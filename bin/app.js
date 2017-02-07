@@ -1,6 +1,8 @@
 /**
  * Parse command line arguments and start the server.
  *
+ * NOTE: Probably this should be removed completely or to be replaced with nicer cmd client.
+ *
  * Command line arguments:
  *
  * ```
@@ -33,4 +35,4 @@ if (argv.port) {
   config.port = argv.port;
 }
 
-require('./main').start(config);
+require('../app').express.main.start(config);
