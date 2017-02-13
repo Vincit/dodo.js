@@ -3,6 +3,8 @@
 
 # Dodo.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Vincit/dodo.js.svg)](https://greenkeeper.io/)
+
 Under construction. Coming sooon....
 
 ## Bootstrapping new Dodo project
