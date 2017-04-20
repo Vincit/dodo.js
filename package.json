@@ -37,7 +37,7 @@
     "lib/*"
   ],
   "dependencies": {
-    "aws-sdk": "2.12.0",
+    "aws-sdk": "2.44.0",
     "bluebird": "3.4.7",
     "body-parser": "1.16.1",
     "busboy": "0.2.14",
