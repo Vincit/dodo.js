@@ -81,8 +81,8 @@ describe('main.js app create / start', function () {
     it('should emit appReady event after features are initialized', function () {
       var app = main.createApp(okConfig);
       var events = app.feature('feature-in-path').events;
-      var firstAppReadyEvent = _(events).pluck('event').indexOf('appReady');
-      var lastFeatureInitEvent = _(events).pluck('event').lastIndexOf('featureInitializeEnd');
+      var firstAppReadyEvent = _(events).map('event').indexOf('appReady');
+      var lastFeatureInitEvent = _(events).map('event').lastIndexOf('featureInitializeEnd');
       expect(firstAppReadyEvent > lastFeatureInitEvent, JSON.stringify(events,null,2)).to.be.ok;
     });
 
