@@ -79,8 +79,8 @@ describe('request', function() {
 
       _.each(['get', 'put', 'post', 'patch', 'delete'], function(method) {
 
-        it(method.toUpperCase() + ' should be able to build URL from pieces', function (done) {
-          request[method]()
+        it(method.toUpperCase() + ' should be able to build URL from pieces', function () {
+          return request[method]()
             .hostname('localhost')
             .protocol('http')
             .port(8088)
@@ -88,59 +88,49 @@ describe('request', function() {
             .then(function(res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should get body as json', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should get body as json', function () {
+          return request[method]('http://localhost:8088/test')
             .then(function(res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should get body as buffer', function (done) {
+        it(method.toUpperCase() + ' should get body as buffer', function () {
           responseData = 'this is not json';
-          request[method]('http://localhost:8088/test')
+          return request[method]('http://localhost:8088/test')
             .then(function(res) {
               expect(res.body).to.be.an.instanceof(Buffer);
               expect(res.body.toString()).to.equal('this is not json');
               expect(calledMethod).to.equal(method);
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should write response to a file', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should write response to a file', function () {
+          return request[method]('http://localhost:8088/test')
             .toFile(outFilePath)
             .then(function(res) {
               expect(res).to.not.have.property('body');
               expect(calledMethod).to.equal(method);
               expect(fs.readFileSync(outFilePath).toString()).to.equal(JSON.stringify(responseData));
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should write response to a stream', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should write response to a stream', function () {
+          return request[method]('http://localhost:8088/test')
             .toStream(fs.createWriteStream(outFilePath))
             .then(function(res) {
               expect(res).to.not.have.property('body');
               expect(calledMethod).to.equal(method);
               expect(fs.readFileSync(outFilePath).toString()).to.equal(JSON.stringify(responseData));
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send custom headers (individual)', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send custom headers (individual)', function () {
+          return request[method]('http://localhost:8088/test')
             .header('X-Custom-Header', 'jeah')
             .header('X-Another-Custom-Header', 'woohoo')
             .then(function(res) {
@@ -148,26 +138,22 @@ describe('request', function() {
               expect(calledMethod).to.equal(method);
               expect(headers['x-custom-header']).to.equal('jeah');
               expect(headers['x-another-custom-header']).to.equal('woohoo');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send custom headers (object)', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send custom headers (object)', function () {
+          return request[method]('http://localhost:8088/test')
             .headers({'X-Custom-Header': 'jeah', 'X-Another-Custom-Header': 'woohoo'})
             .then(function(res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
               expect(headers['x-custom-header']).to.equal('jeah');
               expect(headers['x-another-custom-header']).to.equal('woohoo');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send query parameters (individual)', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send query parameters (individual)', function () {
+          return request[method]('http://localhost:8088/test')
             .query('a', 1)
             .query('a', 2)
             .query('b', 'tässä on välejä ja äääkkösiä')
@@ -176,54 +162,46 @@ describe('request', function() {
               expect(calledMethod).to.equal(method);
               expect(queryString.a).to.eql(['1', '2']);
               expect(queryString.b).to.equal('tässä on välejä ja äääkkösiä');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send query parameters (object)', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send query parameters (object)', function () {
+          return request[method]('http://localhost:8088/test')
             .query({a: [1, 2], b:'tässä on välejä ja äääkkösiä'})
             .then(function(res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
               expect(queryString.a).to.eql(['1', '2']);
               expect(queryString.b).to.equal('tässä on välejä ja äääkkösiä');
-              done();
-            })
-            .catch(done);
+            });
         });
 
       });
 
       _.each(['put', 'post', 'patch'], function(method) {
 
-        it(method.toUpperCase() + ' should send body as json', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send body as json', function () {
+          return request[method]('http://localhost:8088/test')
             .body({putTest: 'test'})
             .then(function (res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
               expect(body).to.eql({putTest: 'test'});
               expect(headers['content-type']).to.equal('application/json; charset=utf-8');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send body as buffer', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should send body as buffer', function () {
+          return request[method]('http://localhost:8088/test')
             .body(new Buffer('this is a test string'))
             .then(function (res) {
               expect(res.body).to.eql(responseData);
               expect(calledMethod).to.equal(method);
               expect(headers['content-type']).to.equal('application/octet-stream; charset=utf-8');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send body from file', function (done) {
+        it(method.toUpperCase() + ' should send body from file', function () {
           fs.writeFileSync(inFilePath, JSON.stringify({a:1, b:2}));
           return request[method]('http://localhost:8088/test')
             .fromFile(inFilePath)
@@ -233,14 +211,12 @@ describe('request', function() {
               expect(calledMethod).to.equal(method);
               expect(headers['content-type']).to.equal('application/json');
               expect(body).to.eql({a:1, b:2});
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should send body from a stream', function (done) {
+        it(method.toUpperCase() + ' should send body from a stream', function () {
           fs.writeFileSync(inFilePath, JSON.stringify({a:1, b:2}));
-          request[method]('http://localhost:8088/test')
+          return request[method]('http://localhost:8088/test')
             .fromStream(fs.createReadStream(inFilePath))
             .contentType('application/json')
             .then(function (res) {
@@ -248,13 +224,11 @@ describe('request', function() {
               expect(calledMethod).to.equal(method);
               expect(headers['content-type']).to.equal('application/json');
               expect(body).to.eql({a:1, b:2});
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should call methods registered via onResponse', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should call methods registered via onResponse', function () {
+          return request[method]('http://localhost:8088/test')
             .onResponse(function (res) {
               return Promise.delay(1).then(function () {
                 return res.body;
@@ -267,13 +241,11 @@ describe('request', function() {
             })
             .then(function(wot) {
               expect(wot.booty).to.eql(responseData);
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should call methods registered via onBeforeExecute', function (done) {
-          request[method]('http://localhost:8088/test')
+        it(method.toUpperCase() + ' should call methods registered via onBeforeExecute', function () {
+          return request[method]('http://localhost:8088/test')
             .onBeforeExecute(function (req) {
               return Promise.delay(1).then(function () {
                 req.query('test 1', 1);
@@ -285,12 +257,10 @@ describe('request', function() {
             .then(function() {
               expect(queryString['test 1']).to.equal('1');
               expect(queryString['test 2']).to.equal('2');
-              done();
-            })
-            .catch(done);
+            });
         });
 
-        it(method.toUpperCase() + ' should be able to resend a cloned request', function (done) {
+        it(method.toUpperCase() + ' should be able to resend a cloned request', function () {
           var req = request[method]('http://localhost:8088/test')
             .body({some: 'data'})
             .header('x-my-header', 42)
@@ -339,9 +309,7 @@ describe('request', function() {
               expect(headers['x-my-header']).to.equal('42');
               expect(queryString['wot']).to.equal('you heard me');
               expect(queryString['yeah']).to.equal('test');
-              done();
-            })
-            .catch(done);
+            });
         });
 
       });
