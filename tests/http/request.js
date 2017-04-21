@@ -43,11 +43,29 @@ describe('request', function() {
           }
         };
 
+        var slowHandler = function (method) {
+          return function(req, res) {
+            calledMethod = method;
+            body = req.body;
+            headers = req.headers;
+            queryString = req.query;
+            setTimeout(function () {
+              res.send(responseData);
+            }, 10000);
+          }
+        };
+
         app.get('/test', handler('get'));
         app.put('/test', handler('put'));
         app.post('/test', handler('post'));
         app.delete('/test', handler('delete'));
         app.patch('/test', handler('patch'));
+
+        app.get('/slow', slowHandler('get'));
+        app.put('/slow', slowHandler('put'));
+        app.post('/slow', slowHandler('post'));
+        app.delete('/slow', slowHandler('delete'));
+        app.patch('/slow', slowHandler('patch'));
 
         app.server = require('http').createServer(app);
         app.server.listen(8088, void 0, void 0, function () {
@@ -78,6 +96,17 @@ describe('request', function() {
       });
 
       _.each(['get', 'put', 'post', 'patch', 'delete'], function(method) {
+
+        it(method.toUpperCase() + ' should timeout', function () {
+          return request[method]('http://localhost:8088/slow')
+            .timeout(1)
+            .then(function(res) {
+              expect('timeout should have been triggered').to.eql(false);
+            })
+            .catch(function (err) {
+              expect(err.message).to.contains('socket hang up');
+            });
+        });
 
         it(method.toUpperCase() + ' should be able to build URL from pieces', function () {
           return request[method]()
