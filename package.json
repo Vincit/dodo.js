@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "body-parser": "1.17.2",
-    "chai": "^3.4.0",
+    "chai": "^4.0.1",
     "coveralls": "^2.11.4",
     "express": "^4.12.0",
     "istanbul": "^0.4.0",
