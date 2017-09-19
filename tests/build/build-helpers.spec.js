@@ -27,7 +27,7 @@ describe('build-helpers.js', function () {
 
     it('should have core tasks registered', function () {
       expect(services[0].tasks).to.have.length(1);
-      expect(_.find(services[0].tasks, { name: 'serve' })).to.be.truthy;
+      expect(_.find(services[0].tasks, { name: 'serve' })).to.be.ok;
     });
 
     it('should have configuration', function () {
