@@ -163,6 +163,25 @@ describe('main.js app create / start', function () {
       });
     });
 
+    it('should throw an error if config.protocol == spdy and no ssl config given', function () {
+        okConfig.protocol = 'spdy';
+        var fn = function () {
+            main.createApp(okConfig);
+        };
+        expect(fn).to.throw("Spdy requires ssl configuration with key and cert");
+    });
+    it('should throw an error if config.protocol == spdy and no spdy module installed', function () {
+        okConfig.protocol = 'spdy';
+        okConfig.ssl = {
+            key: path.join(__dirname, 'data', 'server.unencrypted.key'),
+            cert: path.join(__dirname, 'data', 'server.crt')
+        };
+        var fn = function () {
+            main.createApp(okConfig);
+        };
+        expect(fn).to.throw("Optional dependency 'spdy' (https://www.npmjs.com/package/spdy) is required for spdy protocol.");
+    });
+
     it('should start correctly also when not in testing profile (NOTE: this will spam test run a bit)', function () {
       delete okConfig['profile'];
       var app = main.createApp(okConfig);
