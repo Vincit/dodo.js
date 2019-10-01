@@ -37,7 +37,7 @@
     "lib/*"
   ],
   "dependencies": {
-    "bluebird": "3.5.1",
+    "bluebird": "3.7.0",
     "cli-color": "1.1.0",
     "compression": "1.7.1",
     "form-data": "2.3.1",
