@@ -45,7 +45,7 @@
     "lodash": "^4.17.4",
     "minimist": "1.2.0",
     "underscore.string": "^3.0.0",
-    "uuid": "^3.0.0"
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "body-parser": "1.18.2",
